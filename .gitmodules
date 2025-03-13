@@ -1,3 +1,9 @@
 [submodule "SAM2/sam2"]
 	path = SAM2/sam2
 	url = https://github.com/facebookresearch/sam2
+[submodule "Stage_LPHI_2024_Axel/Stage_2024"]
+	path = Stage_LPHI_2024_Axel/Stage_2024
+	url = https://github.com/Axeldmont/Stage-LPHI-2024
+[submodule "Grounded-SAM2/Grounded-SAM-2"]
+	path = Grounded-SAM2/Grounded-SAM-2
+	url = https://github.com/IDEA-Research/Grounded-SAM-2
