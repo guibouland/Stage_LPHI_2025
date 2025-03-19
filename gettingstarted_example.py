@@ -12,9 +12,16 @@ from analyse.perimeter import perimeter
 from analyse.recap import aggregate
 import shutil
 from track.filtre import supprimer_petit
+import sys 
+current = os.path.dirname(os.path.realpath(__file__)) # should me 'mactrack' folder as you should have put the gettingstarted_example.py in the mactrack folder
+parent = os.path.dirname(current)
+sys.path.append(parent)
+from Set_up.count import get_frame_count
 
-input_folder = "../input/Example" # Enter your data folder name instead of yourdatafolder (../ for interactive window in vscode)
-n = 266 # Number of frame in the initial video (red channel)
+
+input_folder = os.path.join(parent, "input/Example") # Enter your data folder name instead of yourdatafolder 
+video_path = os.path.join(input_folder, "redchannel.mp4") # Enter the path of you red channel video (mp4 format)
+n = get_frame_count(video_path) # Number of frame in the initial video (red channel)
 p = 10 # minimal number of frame where you can track your macrophage, if it is present in less or equal p frame it will not be tracked
 
 # create each frame of the video into picture folder (red picture are stored in "input/yourdatafolder/dataset/test/test_x", green picture are stored in "input/yourdatafolder/vert/frames")
@@ -26,6 +33,9 @@ if os.path.exists("output/list_sep"):
     shutil.rmtree("output/list_sep")
 if os.path.exists("output/list_comp"):
     shutil.rmtree("output/list_comp")
+if os.path.exists("output/list_track"):
+    shutil.rmtree("output/list_track")
+
 # Function which will do the segmentation, it will create a folder output with in it "list_comp" which contain the segmentation at each frame and "list_sep" which contain every object in separate picture file at each frame 
 locate(input_folder)
 
