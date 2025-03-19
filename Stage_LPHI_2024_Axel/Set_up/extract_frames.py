@@ -10,8 +10,6 @@ def extract_frames(video_path, output_folder, fps=10):
     :param video_path: Path to the input MP4 video file.
     :param output_folder: Path to the folder where frames will be saved.
     :param fps: Frames per second to extract.
-    :param width: Output frame width.
-    :param height: Output frame height.
     """
     video = cv2.VideoCapture(video_path)
 

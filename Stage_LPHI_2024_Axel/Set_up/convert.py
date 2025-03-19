@@ -3,6 +3,18 @@ from time import time
 from moviepy.editor import VideoFileClip
 
 def convert_avi_to_mp4(avi_file_path):
+    """
+    Converts an AVI video file to MP4 format.
+    Args:
+        avi_file_path (str): The file path of the AVI video to be converted.
+    Raises:
+        FileNotFoundError: If the specified AVI file does not exist.
+    Returns:
+        None
+    Example:
+        convert_avi_to_mp4('/path/to/video.avi')
+    """
+
     # function guard
     if not os.path.exists(avi_file_path):
         raise FileNotFoundError(avi_file_path)
