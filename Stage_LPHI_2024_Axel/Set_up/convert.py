@@ -1,9 +1,7 @@
-#%%
 import os
 from time import time
 from moviepy.editor import VideoFileClip
 
-#%%
 def convert_avi_to_mp4(avi_file_path):
     # function guard
     if not os.path.exists(avi_file_path):
@@ -22,11 +20,7 @@ def convert_all_avi_in_folder(folder_path):
                 avi_file_path = os.path.join(root, file_name)
                 convert_avi_to_mp4(avi_file_path)
 
-#%%
-if __name__ == '__main__':
-    folder_path = "/home/gbouland/Stage-LPHI-2024/input/norma/"
-    convert_all_avi_in_folder(folder_path)
-# %%
+
 # Delete avi files in folder and subfolders
 def delete_avi_files(folder_path):
     for root, dirs, files in os.walk(folder_path):
@@ -34,8 +28,5 @@ def delete_avi_files(folder_path):
             if file_name.endswith('.avi'):
                 avi_file_path = os.path.join(root, file_name)
                 os.remove(avi_file_path)
-#%%
-if __name__ == '__main__':
-    folder_path = "/home/gbouland/Stage-LPHI-2024/input/norma/"
-    delete_avi_files(folder_path)
-# %%
+
+

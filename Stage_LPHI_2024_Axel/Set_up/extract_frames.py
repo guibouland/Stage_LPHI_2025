@@ -1,7 +1,8 @@
 import subprocess
 import os
+import cv2
 
-def extract_frames(video_path, output_folder, fps=10, width=1605, height=1541):
+def extract_frames(video_path, output_folder, fps=10):
     """
     Extract frames from an MP4 video and save them as PNG images with a fixed resolution.
     Ensures uniform frame size by resizing and padding if needed.
@@ -12,11 +13,15 @@ def extract_frames(video_path, output_folder, fps=10, width=1605, height=1541):
     :param width: Output frame width.
     :param height: Output frame height.
     """
+    video = cv2.VideoCapture(video_path)
 
+    # Get width and height
+    width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
     # Ensure output folder exists
     os.makedirs(output_folder, exist_ok=True)
 
-    output_pattern = os.path.join(output_folder, "frame_%04d.png")
+    output_pattern = os.path.join(output_folder, "frame_%03d.png")
     
     command = [
         "ffmpeg",
@@ -28,10 +33,3 @@ def extract_frames(video_path, output_folder, fps=10, width=1605, height=1541):
     
     subprocess.run(command, check=True)
     print(f"Frames saved in {output_folder} with resolution {width}x{height}")
-
-# Example usage
-extract_frames(
-    "/home/gbouland/Stage-LPHI-2024/input/norma/vert/250210-Norma-GC-cut-3hpA-green channel_Fish_1.mp4", 
-    "/home/gbouland/Stage-LPHI-2024/input/norma/vert/frames", 
-    fps=10, width=1605, height=1541
-)

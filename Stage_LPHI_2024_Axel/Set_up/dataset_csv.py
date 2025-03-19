@@ -24,8 +24,3 @@ def create_dataset_csv(input_folder, output_csv):
         
         for x_file, y_file in zip(test_x_files, test_y_files):
             writer.writerow([os.path.join('test/test_x', x_file), os.path.join('test/test_y', y_file), 'testing'])
-
-# Example usage
-input_folder = '/home/gbouland/Stage-LPHI-2024/input/norma/dataset'
-output_csv = '/home/gbouland/Stage-LPHI-2024/input/norma/dataset/dataset.csv'
-create_dataset_csv(input_folder, output_csv)
