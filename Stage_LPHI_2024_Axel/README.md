@@ -1,20 +1,20 @@
 # Stage_LPHI_2024
 
-Done by [Axel de Montgolfier](https://github.com/Axeldmont/) during hi time at the LPHI laboratory in Montpellier University.
+Made by [Axel de Montgolfier](https://github.com/Axeldmont/) during his time at the LPHI lab at the University of Montpellier. You can follow the submodule link to see what he has done. Our work aims at simplifying its use and providing an example dataset that matches the structures that the subsequent libraries oblige you to follow.
 
 ---
 
-First of all, all the videos and frames we used for analysis and segmentation were made using a spinning disk confocal microscope that lightens in red the macrophages and in green the calcium flashes. We cut the caudal fin fold of a zebrafish in order to study if there is a connection between the polarization of macrophages and calcium flashes.
+First, all the videos and frames we used for analysis and segmentation were taken using a spinning disk confocal microscope, which illuminates macrophages in red and calcium flashes in green. We cut the caudal fin fold of a zebrafish in order to study if there is a correlation between the macrophage polarization and calcium flashes.
 
-The aim of this project is then to segment the macrophages accurately. This segmentation will allow us to layer it on the green channel video to naalyse the calcium flashes of the macrophages we tracked.
+The goal of this project is then to accurately segment the macrophages. This segmentation will allow us to superimpose it on the green channel video to analyse the calcium flashes of the macrophages we have tracked.
 
 ## Installation
 
 ---
 
-As my internship was the following of his work, I had to ba acostumed to what he has done during his time at LPHI. This folder consists of upgrades of the original work available via this [link](https://github.com/Axeldmont/Stage-LPHI-2024). It also contains the `Set_up` folder that helps you build the project and your dataset.
+As my internship was following his work, I had to be acostumed to what he did during his time at LPHI. This folder consists of upgrades of the original work available via this [link](https://github.com/Axeldmont/Stage-LPHI-2024). The `mactrack` folder is almost the same, as I only modified the `gettingstarted.py` file in order to run the example we'll talk about later.
 
-First of all, the packages you will need in order to run this project are available in the `requirements.txt` file. For the `numena` library, you must add this class in the  `/home/gbouland/micromamba/envs/sam-env/lib/python3.12/site-packages/numena/io/json.py` file. If you didn't set up an environment, find where your `site-packages` folder is stocked and then add the class to the file mentionned before.
+First, the packages you need in order to run this project are available in the `requirements.txt` file. For the `numena` library, you need to add this class in the  `/home/gbouland/micromamba/envs/sam-env/lib/python3.12/site-packages/numena/io/json.py` file. If you haven't set up an environment, find out where your `site-packages` folder is stored and add the class to the above file.
 
 ```python
 class Serializable(ABC):
@@ -29,7 +29,7 @@ class Serializable(ABC):
         pass
 ```
 
-Next, as Axel mentionned it, you must add an `input` folder that should look like this :
+Next, as Axel mentionned, your `input` folder needs to look like this:
 
 ```
 input/yourdatafolder/
@@ -42,11 +42,13 @@ input/yourdatafolder/
   └── redchannelvideo.mp4
 ```
 
-Now let's talk about what's inside of these folders. You can refer yourself to the `example` folder.
+As you may have seen, an `input/Example` folder already exists in this repository. It is an sample input folder to help you understand how it should look and what to put in it.
+
+Now let's talk about what's inside of these folders.
 
 ---
 
-The `dataset` folder is arranged as folloxs :
+The `dataset` folder is arranged as follows :
 
 ```
 dataset
@@ -60,32 +62,35 @@ dataset
 └── META.json
 ```
 
-The `train` folder consists of `train_x` which is a folder containing all the frames that served to train the model. They must be from the red channel (so macrophages). The `train_y` folder contains the "masks". Each frame in the `train_x` folder must be hand-cut in the ImageJ program. You must add "Regions of Interest" on each frame and then save it as a `.zip` file containing all the ROIs in a single frame. You must do it for all frames in the `train_x` folder. Thanks to `kartezio` and the methods it is using, you don't need a lot of frame to make a good `train` dataset. For instance, Axel used only 26 frames.
+The `train` folder consists of `train_x` which is a folder containing all the frames that served to train the model. They must be from the red channel (so macrophages). The `train_y` folder contains the "masks". Each frame in the `train_x` folder must be hand-cut in the ImageJ program. You must add "Regions of Interest" on each frame and then save it as a `.zip` file containing all the ROIs in a single frame. You must do it for all frames in the `train_x` folder. Thanks to the `kartezio` module and the methods it is using, you don't need a lot of frame to make a good `train` dataset. For instance, Axel used only 26 frames, which is a very small number for a learning set.
 
-Then comes the `test` folder. You don't have to worry about the `test_x` folder as it will be added when you run the final file. It contains the frames of your red channel video. The `test_y` is a bit particular. As for the `train_x` folder, it contains masks. If your video has more frames than your training set, the `test_y` contains all the masks from `train_y` ans the last one is repeated to reach the number of frmaes in your video. All of this is achieved using the `copy_zip_file` function in the `Set_up/Structure.py` file.
+Then comes the `test` folder. You don't have to worry about the `test_x` folder, it will be added when you run the `gettingstarted_example` file. It contains the frames of your red channel video. The `test_y` is a bit special. It is only here for structure. In fact, the one we provided in the `Example` folder consists of empty `.zip` files. The number depends on the length of your video (number of frames). The `Set_up/empty_zip.py` helps you create these files.
 
-The `dataset.csv` file is a summary of the different paths of your dataset. It is possible to make it by running the `Dataset_csv.py` file. Finally, the `META.json` file is linked to the `dataset.csv` file as you can see input and label. Input is an image with format hsv and label are ROI files with format polygon (this `META.json` file was made to match functions from the kartezio library).
-
----
-
-The `models` folder consists of json files that characterize the model obtained from the train_model.py file in the `Set_up` folder. To set-up your model, I advice you to do it first and to add a few frames in the `test` folder (before you start segmenting your videos, you may delete them later on place them in a different folder).
+The `dataset.csv` file is a summary of the different paths of your dataset. It is possible to make it by running the `dataset_csv.py` file. Finally, the `META.json` file is linked to the `dataset.csv` file as you can see input and label. Input is an image with format hsv and label are ROI files with format polygon (this `META.json` file was made to match functions from the kartezio library).
 
 ---
 
-The `results` folder contains the performance of the model in the `results.csv` file that is obtained by the `eval_models.py` file after initializing your model.
+The `models` folder consists of json files that characterize the model obtained from the `train_model.py` file in the `Set_up` folder. To set-up your model, I advice you to do it first and to add a few frames in the `test` folder (before you start segmenting your videos, you may delete them later on place them in a different folder). You need to hand-cut these frames as it was done in the `train` folder.
 
 ---
 
-The `vert` folder contains a `frames` folder that is at first empty. You must place your green channel video in the `vert` folder. By running the `Extract_frames.py` file in the `Set_up` folder (by correctly replacing the path of your green channel video), the `frames` folder will be filled with the frames of your green channel video. Be careful to change the width and height parameters with the dimensions of your videos. It is recommended to use even squared dimensions (1024x1024 for instance).
+The `results` folder contains the performances of the model in the `results.csv` file that is obtained by the `eval_models.py` file after initializing your model. It has been tested on 6 additional hand-cut frames.
+
+---
+
+The `vert` folder contains a `frames` folder that is at first empty. You must place your green channel video in the `vert` folder. By running the `extract_frames.py` file in the `Set_up` folder (by correctly replacing the path of your green channel video), the `frames` folder will be filled with the frames of your green channel video.
 
 Finally, you must put you red channel video in the `input/yourdatafolder/` folder.
 
 ---
 
-You can execute the `Convert.py` file in the `Set_up` folder to convert AVI files into MP4 as AVI is the preferred format for video extraction from ImageJ (as Python doesn't work well with 16-bit file formats such as TIFF, while MP4, an 8-bit format, is more compatible).
+You can execute the `convert.py` file in the `Set_up` folder to convert AVI files into MP4 as AVI is the preferred format for video extraction from ImageJ (as Python doesn't work well with 16-bit file formats such as TIFF, while MP4, an 8-bit format, is more compatible).
 
 ---
 
-The `Example` folder contains a full, ready to use, example dataset that you can use to execute Axel's **Mactrack**.
+The `Example` folder contains a full, ready to use, example dataset that you can use to execute Axel's **Mactrack** by running the `gettingstarted_example` file in the `mactrack` folder.
 
-We advice you to replace the `gettingstarted.py` available in the former Mactrack module by the one you can find in the root.
+* [ ] Add requirements.txt
+* [ ] Add quickstart to help build a new input folder from scratch
+* [ ] More comments on the model functions (how to use it ...)
+* [ ] Link to an ImageJ (Fiji) tuto to hand-cut frames.
