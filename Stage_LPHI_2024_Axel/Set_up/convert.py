@@ -10,7 +10,7 @@ def convert_avi_to_mp4(avi_file_path):
     Raises:
         FileNotFoundError: If the specified AVI file does not exist.
     Returns:
-        None
+        A new MP4 video file with the same name as the AVI file in the same directory.
     Example:
         convert_avi_to_mp4('/path/to/video.avi')
     """
