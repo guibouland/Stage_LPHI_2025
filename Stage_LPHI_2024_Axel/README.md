@@ -90,7 +90,7 @@ You can execute the `convert.py` file in the `Set_up` folder to convert AVI file
 
 The `Example` folder contains a full, ready to use, example dataset that you can use to execute Axel's **Mactrack** by running the `gettingstarted_example` file in the `mactrack` folder.
 
-* [ ] Add requirements.txt
+* [X] Add requirements.txt
 * [ ] Add quickstart to help build a new input folder from scratch
-* [ ] More comments on the model functions (how to use it ...)
+* [ ] More comments on the model functions (how to use it ...) --> new training of the model (with val and test sets)
 * [ ] Link to an ImageJ (Fiji) tuto to hand-cut frames.
