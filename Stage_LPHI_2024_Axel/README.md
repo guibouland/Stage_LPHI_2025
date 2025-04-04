@@ -10,8 +10,6 @@ The goal of this project is then to accurately segment the macrophages. This seg
 
 ## Installation
 
----
-
 As my internship was following his work, I had to be acostumed to what he did during his time at LPHI. This folder consists of upgrades of the original work available via this [link](https://github.com/Axeldmont/Stage-LPHI-2024). The `mactrack` folder is almost the same, as I only modified the `gettingstarted.py` file in order to run the example we'll talk about later.
 
 First, the packages you need in order to run this project are available in the `requirements.txt` file. For the `numena` library, you need to add this class in the  `/home/gbouland/micromamba/envs/sam-env/lib/python3.12/site-packages/numena/io/json.py` file. If you haven't set up an environment, find out where your `site-packages` folder is stored and add the class to the above file.
@@ -90,7 +88,4 @@ You can execute the `convert.py` file in the `Set_up` folder to convert AVI file
 
 The `Example` folder contains a full, ready to use, example dataset that you can use to execute Axel's **Mactrack** by running the `gettingstarted_example` file in the `mactrack` folder.
 
-* [X] Add requirements.txt
-* [ ] Add quickstart to help build a new input folder from scratch
-* [ ] More comments on the model functions (how to use it ...) --> new training of the model (with val and test sets)
 * [ ] Link to an ImageJ (Fiji) tuto to hand-cut frames.
