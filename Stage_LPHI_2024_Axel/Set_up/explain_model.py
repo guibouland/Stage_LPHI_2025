@@ -159,7 +159,3 @@ def summary_model(model_folder):
     res = SummaryModel(params, fitness, endpoint, mode, nodes, sequence, functions, model_path)
     print(res.template())
     return res
-
-model = summary_model('modeltest')
-print(model.keys())
-# The above code will print the keys of the model object.
